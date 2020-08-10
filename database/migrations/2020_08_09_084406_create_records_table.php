@@ -19,6 +19,7 @@ class CreateRecordsTable extends Migration
             $table->string('area');
             $table->integer('way');
             $table->integer('time');
+            $table->integer('count');
             $table->string('message');
             $table->integer('reward');
             $table->integer('user_id');
