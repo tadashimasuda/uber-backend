@@ -16,6 +16,19 @@ class recordController extends Controller
         return Record::all();
     }
     /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function serchRecord(Request $request){
+        $keyword = $request->input('keyword');
+        $record=Record::where('area', 'like', '%'.$keyword.'%')->get();
+        return response()->json($record->toArray());
+    }
+    // public function serchRecord(Request $request){
+    //     return Record::NameSerch($request->keyword)->get();
+    // }
+
+
+    /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\recordController;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 
@@ -17,8 +18,14 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//show allRecords
 Route::get('/records','recordController@index');
+//create record
 Route::post('/records','recordController@store');
-Route::get('/records/{id}','recordController@show');
+//serch record keyword
+Route::get('/records/keyword','recordController@serchRecord');//１
+//serch record id
+Route::get('/records/{id}','recordController@show');//2
+
 
 
