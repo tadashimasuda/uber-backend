@@ -27,5 +27,7 @@ Route::get('/records/keyword','recordController@serchRecord');//１
 //serch record id
 Route::get('/records/{id}','recordController@show');//2
 
+Route::post('/register','Api\AuthController@register');
+
 
 
