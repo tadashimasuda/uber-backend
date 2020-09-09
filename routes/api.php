@@ -4,6 +4,8 @@ use App\Http\Controllers\recordController;
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 
+// use Illuminate\Routing\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +20,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::post('/register','Api\AuthController@register');
+// Route::post('/login','Api\AuthController@login');
+// Route::post('/logout','Api\AuthController@logout');
+
 //show allRecords
 Route::get('/records','recordController@index');
 //create record
@@ -27,7 +34,7 @@ Route::get('/records/keyword','recordController@serchRecord');//１
 //serch record id
 Route::get('/records/{id}','recordController@show');//2
 
-Route::post('/register','Api\AuthController@register');
+
 
 
 

@@ -90,6 +90,7 @@ class recordController extends Controller
             if (!$isSuccess) {
                 throw new Exception('ファイルのアップでエラー');
             }
+            Storage::disk('s3')->setVisibility($file,'public');
 
             return $id;
         });
