@@ -23,7 +23,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
 
@@ -31,7 +31,11 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        // return $this->respondWithToken($token);
+        return response()->json([
+            'success'=>true,
+            'token' => $token,
+        ]);
     }
 
     /**
@@ -39,9 +43,13 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function me(Request $request)
     {
-        return response()->json(auth()->user());
+        // return response()->json(auth()->user());
+        return response()->json([
+            'success' =>true,
+            'user' =>  $request->user()
+        ]);
     }
 
     /**

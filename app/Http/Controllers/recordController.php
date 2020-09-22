@@ -23,11 +23,6 @@ class recordController extends Controller
         $record=Record::where('area', 'like', '%'.$keyword.'%')->get();
         return response()->json($record->toArray());
     }
-    // public function serchRecord(Request $request){
-    //     return Record::NameSerch($request->keyword)->get();
-    // }
-
-
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
@@ -67,8 +62,7 @@ class recordController extends Controller
         $count = $params['count'];
         $time = $params['time'];
         $reward = $params['reward'];
-
-        $user_id = 1;
+        $user_id = $params['user_id'];
 
         $id = DB::transaction(function () use ($decodedImage, $content, $area, $way, $time, $count, $reward, $user_id) {
             $id = Str::uuid();
@@ -94,8 +88,10 @@ class recordController extends Controller
 
             return $id;
         });
-
-
         return response()->json($id);
+    }
+
+    public function getUserrecords($id){
+        return Record::where('user_id',$id)->get();
     }
 }

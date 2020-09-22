@@ -3,7 +3,6 @@
 use App\Http\Controllers\recordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-// use Illuminate\Routing\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,25 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-
+Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
     // Route::post('register', 'Api\AuthController@register');
     Route::post('login', 'Api\AuthController@login');
     Route::post('logout', 'Api\AuthController@logout');
     Route::post('refresh', 'Api\AuthController@refresh');
-    Route::post('me', 'Api\AuthController@me');
-
+    Route::get('user', 'Api\AuthController@me');
 });
 
 //show allRecords
 Route::get('/records', 'recordController@index');
 //create record
 Route::post('/records', 'recordController@store');
-//serch record keyword
+//user get records
+Route::get('/records/user/{id}','recordController@getUserrecords');
 //serch record id
 Route::get('/records/{id}', 'recordController@show');//2
+
+
