@@ -92,6 +92,6 @@ class recordController extends Controller
     }
 
     public function getUserrecords($id){
-        return Record::where('user_id',$id)->get();
+        return Record::where('user_id',$id)->orderBy('created_at','desc')->get();
     }
 }

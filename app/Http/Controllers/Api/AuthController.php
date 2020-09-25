@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+
     /**
      * Create a new AuthController instance.
      *
