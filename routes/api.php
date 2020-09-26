@@ -22,10 +22,10 @@ Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
     Route::post('refresh', 'Api\AuthController@refresh');
     Route::get('user', 'Api\AuthController@me');
 });
-Route::middleware(['guest'])->group(function () {
-    Route::post('auth/register', 'Api\RegisterController@register');
-
-});
+// Route::middleware(['guest'])->group(function () {
+//     Route::post('auth/register', 'Api\RegisterController@register');
+// });
+Route::post('auth/register', 'Api\RegisterController@register');
 
 //show allRecords
 Route::get('/records', 'recordController@index');

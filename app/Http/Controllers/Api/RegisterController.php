@@ -26,7 +26,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,9 +49,9 @@ class RegisterController extends Controller
 
         if($validator->fails()) {
             return response()->json([
-                'status' => 'error',
-                'messages' => $validator->messages()
-            ], 200);
+                'status' => 400,
+                'message' => $validator->errors()
+            ],400);
         }
 
         $user = new User;
