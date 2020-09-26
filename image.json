@@ -1,9 +1,10 @@
 {
     "message": "hello",
-    "area": "調布",
+    "area": "本庄",
     "way": 1,
     "count": 10,
     "time": 90,
     "reward": 9000,
-    "image":"data:image/jpeg;base64,/..."
+    "image":"data:image/jpeg;base64,/...",
+    "user_id":14
 }
