@@ -64,6 +64,7 @@ class recordController extends Controller
         $reward = $params['reward'];
         $user_id = $params['user_id'];
 
+        //トランザクション処理
         $id = DB::transaction(function () use ($decodedImage, $content, $area, $way, $time, $count, $reward, $user_id) {
             $id = Str::uuid();
             $file = $id->toString() . '.jpg';

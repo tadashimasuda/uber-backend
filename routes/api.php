@@ -26,6 +26,7 @@ Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
 //     Route::post('auth/register', 'Api\RegisterController@register');
 // });
 Route::post('auth/register', 'Api\RegisterController@register');
+Route::post('auth/edit', 'Api\EditController@update');
 
 //show allRecords
 Route::get('/records', 'recordController@index');
