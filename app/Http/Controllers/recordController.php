@@ -9,11 +9,13 @@ use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 use Str;
 use Storage;
+use App\User;
 
 class recordController extends Controller
 {
     public function index(){
-        return Record::all();
+        // return Record::all();
+        return Record::with('users:id,name,file_path')->get();
     }
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -32,7 +34,7 @@ class recordController extends Controller
     {
         /** @var Record $record */
         $record = Record::find($id);
-        // dd($record);
+        
         return response()->json([
             'message' => $record->message,
             'area' => $record->area,
@@ -40,7 +42,7 @@ class recordController extends Controller
             'way' => $record->way,
             'time' => $record->time,
             'count' => $record->count,
-            'url' => config('app.image_url') . $record->file_path
+            'url' =>  $record->file_path
         ]);
     }
     /**
@@ -67,7 +69,7 @@ class recordController extends Controller
         //トランザクション処理
         $id = DB::transaction(function () use ($decodedImage, $content, $area, $way, $time, $count, $reward, $user_id) {
             $id = Str::uuid();
-            $file = $id->toString() . '.jpg';
+            $file = $id->toString() ;
 
             Record::create([
                 'id' => $id,
@@ -93,6 +95,8 @@ class recordController extends Controller
     }
 
     public function getUserrecords($id){
-        return Record::where('user_id',$id)->orderBy('created_at','desc')->get();
+        $records =Record::where('user_id',$id)->orderBy('created_at','desc')->get();
+        $user = User::select('name','file_path')->where('id',$id)->get();
+        return response()->json([$user,$records]);
     }
 }

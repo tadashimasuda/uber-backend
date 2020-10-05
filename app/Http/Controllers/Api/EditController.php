@@ -31,12 +31,12 @@ class EditController extends Controller
         }
 
         $params = $request;
-
+        $aws=false;
         // if profileimage
-        if ($params['image']) {
-            list(, $image) = explode(';', $params['image']);
-            list(, $image) = explode(',', $image);
-            $decodedImage = base64_decode($image);
+        if ($params['file']) {
+            list(, $file) = explode(';', $params['file']);
+            list(, $file) = explode(',', $file);
+            $decodedImage = base64_decode($file);
         } else {
             $decodedImage = false;
         }
@@ -51,7 +51,9 @@ class EditController extends Controller
 
         DB::transaction(function () use ($user_id, $decodedImage, $name, $email, $password) {
             $id = Str::uuid();
-            $file = $id->toString() . '.jpg';
+            // $file = $id->toString() . '.jpg';
+            $file = $id->toString();
+
 
             $user = User::find($user_id);
             //requestされてきたカラムだけupdate?
@@ -68,7 +70,6 @@ class EditController extends Controller
                     Storage::disk('s3')->delete('profile/' . $user->file_path);
                 } 
                 //upload
-                // $isSuccess = Storage::disk('s3')->put($file, $decodedImage);
                 //[/profile]に$decodeimageを$fileという名前で
                 $isSuccess = Storage::disk('s3')->put('profile/'.$file, $decodedImage);
                 if (!$isSuccess) {
@@ -77,12 +78,14 @@ class EditController extends Controller
                 //publicにする
                 Storage::disk('s3')->setVisibility('profile/'.$file, 'public');
                 $user->file_path = $file;
+                $aws=true;
             } 
             $user->save();
         });
 
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
+            'aws'=>$aws
         ], 200);
     }
 }

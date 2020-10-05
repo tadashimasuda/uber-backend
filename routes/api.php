@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
     // Route::post('register', 'Api\AuthController@register');
     Route::post('login', 'Api\AuthController@login');
@@ -26,15 +28,21 @@ Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
 //     Route::post('auth/register', 'Api\RegisterController@register');
 // });
 Route::post('auth/register', 'Api\RegisterController@register');
-Route::post('auth/edit', 'Api\EditController@update');
+Route::put('auth/edit', 'Api\EditController@update');
+
+
+
 
 //show allRecords
 Route::get('/records', 'recordController@index');
 //create record
 Route::post('/records', 'recordController@store');
-//user get records
-Route::get('/records/user/{id}','recordController@getUserrecords');
-//serch record id
+
+//serch record id レコードの詳細
 Route::get('/records/{id}', 'recordController@show');//2
+
+//user get records ユーザー情報
+Route::get('/records/user/{id}','recordController@getUserrecords');
+
 
 
